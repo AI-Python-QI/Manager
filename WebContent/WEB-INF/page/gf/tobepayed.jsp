@@ -55,11 +55,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div id="wrapper">
    <%--  <jsp:include page="./com/left.jsp" /> --%>
     <div id="page-wrapper" class="th">
-    <strong><h3>已支付订单</h3><span id="numt"></span></strong>
+    <strong><h3>未支付订单</h3><span id="numt"></span></strong>
          开始日期:<input type="date" name="benTime" style="height: 20px;"/>
    	 结束日期:<input type="date" name="endTime" style="height: 20px;"/>
-   	 <button onclick="showChaXun()">查询</button>       
-   	 	<table id="showOrder">
+   	 <button onclick="showChaXun()">查询</button>       	<table id="showOrder">
 			<tbody>
 			  <tr id="show">
 				<th>订单编号</th>
@@ -110,7 +109,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function toShowOne(pageNo) {
 			var bTime=$("input[name=beginTime]").val();
 			var endTime=$("input[name=endTime]").val();
-			var temp=1; //	已支付
+			var temp=0; //	待支付
 			$.ajax({
 				url:"${root}/admin/data/showOrder/"+pageNo+"/"+temp+"",
 				type:"post",

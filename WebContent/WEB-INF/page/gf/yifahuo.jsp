@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>卖家中心</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<%-- <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
@@ -25,7 +25,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="${root }/adminjs/rickshaw.js"></script>
 <link href="${root }/css/common.css" rel="stylesheet" type="text/css">
 <link href="${root }/css/cart.css" rel="stylesheet" type="text/css">
-<link href="${root }/css/product.css" rel="stylesheet" type="text/css"/>
+<link href="${root }/css/product.css" rel="stylesheet" type="text/css"/> --%>
 <style type="text/css">
 	#showOrder td{
 		padding: 0px  0px 0px 10px;
@@ -54,12 +54,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 <div id="wrapper">
    <%--  <jsp:include page="./com/left.jsp" /> --%>
-    <div id="page-wrapper" class="th">
-    <strong><h3>已支付订单</h3><span id="numt"></span></strong>
-         开始日期:<input type="date" name="benTime" style="height: 20px;"/>
+   <!--  <div id="page-wrapper" class="th"> -->
+    <strong><h3>已发货订单</h3><span id="numt"></span></strong>
+   	 开始日期:<input type="date" name="beginTime" style="height: 20px;"/>
    	 结束日期:<input type="date" name="endTime" style="height: 20px;"/>
-   	 <button onclick="showChaXun()">查询</button>       
-   	 	<table id="showOrder">
+   	 <button onclick="showChaXun()">查询</button>
+       	<table id="showOrder">
 			<tbody>
 			  <tr id="show">
 				<th>订单编号</th>
@@ -68,6 +68,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<th>收货电话</th>
 				<th>订单时间</th>
 				<th>订单状态</th>
+				<th>发货状态</th>
 				<th>操作</th>
 			  </tr>
 			</tbody>
@@ -110,7 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function toShowOne(pageNo) {
 			var bTime=$("input[name=beginTime]").val();
 			var endTime=$("input[name=endTime]").val();
-			var temp=1; //	已支付
+			var temp=2; //	已发货
 			$.ajax({
 				url:"${root}/admin/data/showOrder/"+pageNo+"/"+temp+"",
 				type:"post",
@@ -130,7 +131,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                  .append($("<td class='table'></td>").attr("width", "60").html(order.address))
                                  .append($("<td class='table'></td>").attr("width", "60").html(order.phone))
                                  .append($("<td class='table'></td>").html(dateTemp))
-                                 .append($("<td class='table'></td>").html(order.status==0?"未支付":"已支付")) // <input id='add' type='button' value='+'>
+                                 .append($("<td class='table'></td>").html("已支付")) // <input id='add' type='button' value='+'>
+                                 .append($("<td class='table'></td>").html("已发货"))  
                                  .append($("<td class='table'></td>").attr("width", "90").html("<a href='${root}/adm/orderInfo.html/"+order.id+"'>查看</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='${root}/admin/data/deleteOrderById/"+order.id+"' >删除<a/>"))
                                 
                              );
@@ -140,6 +142,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					toShow(paged,pageNo);
 				}
 			})	
+		}
+		function toShipped(id){
+			$.ajax({
+				url:"",
+				type:"post",
+				dataType:"json",
+				
+				
+			})
 		}
 		function toShow(paged,pageNo){
 			var div = $("<div></div>").attr("named","hehe").append(function(){
@@ -194,7 +205,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function showChaXun(){
 			var beginTime=$("input[name=beginTime]").val();
 			var endTime=$("input[name=endTime]").val();
-			location.href="${root}/adm/ordertime.html/"+beginTime+"/"+endTime+"";	
+			
+			location.href="${root}/adm/ordertime.html/"+beginTime+"/"+endTime+"";
+			
 		}
 	</script>
 </body>

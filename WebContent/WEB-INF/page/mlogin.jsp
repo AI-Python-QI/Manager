@@ -58,14 +58,14 @@
         		sendData={"username":username,
         					"password":password};
         		$.ajax({
-        			url:"${root}/admin/mlogin.action",
+        			url:"/project_estore1/admin/data/login",
         			data:sendData,
         			dataType:"json",
         			Type:"post",
         			success:function(result){
         				if(result.error_code =="24"){
         					alert("登录成功！");
-            				location.href="${root}/admin/mindex.html";
+            				location.href="/project_estore1/adm/index.html";
         				}else{
         					alert("登录失败");
         					return false;

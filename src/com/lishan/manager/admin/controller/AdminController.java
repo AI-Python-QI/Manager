@@ -61,6 +61,12 @@ public class AdminController {
 		return "admin-list";
 	}
 	
+	//管理员简单列表
+	@RequestMapping(value="/admin-list-simple.html",produces="text/html;charset=utf-8")
+	public String adminlistsimple()throws Exception{
+		return "admin-list-simple";
+	}
+	
 	//角色管理
 	@RequestMapping(value="/admin-role.html",produces="text/html;charset=utf-8")
 	public String adminrole()throws Exception{

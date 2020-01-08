@@ -55,11 +55,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div id="wrapper">
    <%--  <jsp:include page="./com/left.jsp" /> --%>
     <div id="page-wrapper" class="th">
-    <strong><h3>已支付订单</h3><span id="numt"></span></strong>
-         开始日期:<input type="date" name="benTime" style="height: 20px;"/>
+    <strong><h3>已发货订单</h3><span id="numt"></span></strong>
+   	 开始日期:<input type="date" name="benTime" style="height: 20px;"/>
    	 结束日期:<input type="date" name="endTime" style="height: 20px;"/>
-   	 <button onclick="showChaXun()">查询</button>       
-   	 	<table id="showOrder">
+   	 <button onclick="showChaXun()">查询</button>
+       	<table id="showOrder">
 			<tbody>
 			  <tr id="show">
 				<th>订单编号</th>
@@ -68,6 +68,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<th>收货电话</th>
 				<th>订单时间</th>
 				<th>订单状态</th>
+				<th>发货状态</th>
 				<th>操作</th>
 			  </tr>
 			</tbody>
@@ -110,9 +111,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function toShowOne(pageNo) {
 			var bTime=$("input[name=beginTime]").val();
 			var endTime=$("input[name=endTime]").val();
-			var temp=1; //	已支付
 			$.ajax({
-				url:"${root}/admin/data/showOrder/"+pageNo+"/"+temp+"",
+				url:"${root}/admin/data/showTimeOrder/"+pageNo+"/${beginTime}/${endTime}",
 				type:"post",
 				dataType:"json",
 				success:function(reslut){
@@ -130,7 +130,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                  .append($("<td class='table'></td>").attr("width", "60").html(order.address))
                                  .append($("<td class='table'></td>").attr("width", "60").html(order.phone))
                                  .append($("<td class='table'></td>").html(dateTemp))
-                                 .append($("<td class='table'></td>").html(order.status==0?"未支付":"已支付")) // <input id='add' type='button' value='+'>
+                                 .append($("<td class='table'></td>").html(order.status==1?"已支付":(order.status==0?"未支付":(order.status==2?"已发货":(order.status==3?"已完成":""))))) // <input id='add' type='button' value='+'>
+                                 .append($("<td class='table'></td>").html(order.status==1?"<a href='${root}/admin/data/updateStat/"+order.id+"'>立即发货</a>":(order.status==0?"未支付":(order.status==2?"已发货":(order.status==3?"已完成":""))))) // <input id='add' type='button' value='+'>  
                                  .append($("<td class='table'></td>").attr("width", "90").html("<a href='${root}/adm/orderInfo.html/"+order.id+"'>查看</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='${root}/admin/data/deleteOrderById/"+order.id+"' >删除<a/>"))
                                 
                              );
@@ -140,6 +141,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					toShow(paged,pageNo);
 				}
 			})	
+		}
+		function toShipped(id){
+			$.ajax({
+				url:"",
+				type:"post",
+				dataType:"json",
+				
+				
+			})
 		}
 		function toShow(paged,pageNo){
 			var div = $("<div></div>").attr("named","hehe").append(function(){

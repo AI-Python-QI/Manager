@@ -1,5 +1,7 @@
 package com.lishan.manager.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -48,5 +50,25 @@ public class AdminDataController {
 		
 	}
 	
+	//查询管理员列表
+	@RequestMapping(value="/allmanager",produces="text/html;charset=utf-8")
+	@ResponseBody
+	public String mlogin(HttpServletRequest request)throws Exception{
+			JSONObject json = new JSONObject();
+			HttpSession session = request.getSession();
+			//调用service查询数据库
+			List<Admin> lists = adminService.queryAdminlist();
+			System.out.println("管理员列表："+lists);
+			if(lists!=null) {
+				json.put("error_code", "24");
+				json.put("error_msg", lists);
+			}else {
+				json.put("error_code", "404");
+				json.put("error_msg", "error");
+			}
+			
+			return json.toJSONString();
+			
+		}
 	
 }

@@ -2,6 +2,7 @@ package com.lishan.manager.admin;
 
 import java.util.Date;
 
+
 import com.alibaba.fastjson.JSON;
 
 public class Admin {
@@ -13,6 +14,10 @@ public class Admin {
 	private Date createtime;
 	private Integer state;
 	private Integer rid;
+	private String email;
+	private String phone;
+	
+
 	
 	
 	
@@ -20,14 +25,19 @@ public class Admin {
 	public Admin() {
 		
 	}
-	public Admin(String username, String password, Date createtime, Integer state, Integer rid) {
-		super();
+
+	public Admin(String username, String password, Date createtime, Integer state, Integer rid, String email,
+			String phone) {
+		
 		this.username = username;
 		this.password = password;
 		this.createtime = createtime;
 		this.state = state;
 		this.rid = rid;
+		this.email = email;
+		this.phone = phone;
 	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -58,6 +68,23 @@ public class Admin {
 	public void setRid(Integer rid) {
 		this.rid = rid;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);

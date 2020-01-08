@@ -28,15 +28,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="${root }/css/product.css" rel="stylesheet" type="text/css"/>
 <style type="text/css">
 	#showOrder td{
-		padding: 0px  0px 0px 10px;
-		border: 2px solid;
+		padding: 10px  0px 0px 10px;
+		border: 1px solid;
 		width: 150px;
 		height: 100px;
-		font-weight: bold;
 	}
 	#show th{
-		padding: 0px  0px 0px 10px;
-		border: 2px solid;
+		padding: 10px  0px 0px 10px;
+		border: 1px solid;
 		width: 150px;
 	}
 	#wrapper{
@@ -47,7 +46,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		width: 60px;
 	}
 	.th{
-		padding: 0px 50px 50px 50px;
+		padding: 30px 100px 50px 150px;
 	}
 </style>
 </head>
@@ -56,10 +55,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <%--  <jsp:include page="./com/left.jsp" /> --%>
     <div id="page-wrapper" class="th">
     <strong><h3>已支付订单</h3><span id="numt"></span></strong>
-         开始日期:<input type="date" name="benTime" style="height: 20px;"/>
+   	 开始日期:<input type="date" name="benTime" style="height: 20px;"/>
    	 结束日期:<input type="date" name="endTime" style="height: 20px;"/>
-   	 <button onclick="showChaXun()">查询</button>       
-   	 	<table id="showOrder">
+   	 <button onclick="showChaXun()">查询</button>
+       	<table id="showOrder">
 			<tbody>
 			  <tr id="show">
 				<th>订单编号</th>
@@ -68,6 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<th>收货电话</th>
 				<th>订单时间</th>
 				<th>订单状态</th>
+				<th>发货状态</th>
 				<th>操作</th>
 			  </tr>
 			</tbody>
@@ -110,7 +110,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		function toShowOne(pageNo) {
 			var bTime=$("input[name=beginTime]").val();
 			var endTime=$("input[name=endTime]").val();
-			var temp=1; //	已支付
+			var temp=3; //	已完成
 			$.ajax({
 				url:"${root}/admin/data/showOrder/"+pageNo+"/"+temp+"",
 				type:"post",
@@ -130,7 +130,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                  .append($("<td class='table'></td>").attr("width", "60").html(order.address))
                                  .append($("<td class='table'></td>").attr("width", "60").html(order.phone))
                                  .append($("<td class='table'></td>").html(dateTemp))
-                                 .append($("<td class='table'></td>").html(order.status==0?"未支付":"已支付")) // <input id='add' type='button' value='+'>
+                                 .append($("<td class='table'></td>").html(order.status==3?"已完成":"")) // <input id='add' type='button' value='+'>
+                                 .append($("<td class='table'></td>").html("已收货")) 
                                  .append($("<td class='table'></td>").attr("width", "90").html("<a href='${root}/adm/orderInfo.html/"+order.id+"'>查看</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='${root}/admin/data/deleteOrderById/"+order.id+"' >删除<a/>"))
                                 
                              );
@@ -140,6 +141,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					toShow(paged,pageNo);
 				}
 			})	
+		}
+		function toShipped(id){
+			$.ajax({
+				url:"",
+				type:"post",
+				dataType:"json",
+				
+				
+			})
 		}
 		function toShow(paged,pageNo){
 			var div = $("<div></div>").attr("named","hehe").append(function(){
@@ -190,6 +200,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						  
 					return $div;
 				}).appendTo($("#div"));
+		}
+		function showChaXun(){
+			var bTime=$("input[name=beginTime]").val();
+			var endTime=$("input[name=endTime]").val();
+			var dateE=new Date(endTime);
+	    	var dateEA=dateE.format("yyyy-MM-dd hh:mm:ss");
+	    	var dateS=new Date(bTime);
+	    	var dateT=dateS.format("yyyy-MM-dd hh:mm:ss");
+	    	alert(dateT);
+			var sum;
+			$("tr[named=hehe]").remove();	   
+			$("div[named=hehe]").remove();
+			$.each(o, function (index, order) {
+				var dateStr=new Date(order.createtime);
+		    	var dateTemp=dateStr.format("yyyy-MM-dd hh:mm:ss");
+		    	if(dateT<dateTemp && dateEA>dateTemp){
+		    	$("#showOrder")
+                     .append($("<tr></tr>").attr("named", "hehe")
+                         .append($("<td></td>").attr("class","table").html(order.id))
+                         .append($("<td class='table'></td>").attr("width", "60").html(order.receivename))
+                         .append($("<td class='table'></td>").attr("width", "60").html(order.address))
+                         .append($("<td class='table'></td>").attr("width", "60").html(order.phone))
+                         .append($("<td class='table'></td>").html(dateTemp))
+                         .append($("<td class='table'></td>").html(order.status==0?"未支付":"已支付")) // <input id='add' type='button' value='+'>
+                         .append($("<td class='table'></td>").attr("width", "90").html("<a href='${root}/order/orderInfo.html/"+order.id+"'>查看</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href='${root}/order/data/deleteOrderById/"+order.id+"' >删除<a/>"))  
+                  );
+		    	sum++;
+		    	}
+             });
 		}
 		function showChaXun(){
 			var beginTime=$("input[name=beginTime]").val();

@@ -66,7 +66,7 @@
                       <div class="layui-input-block">
                         <input type="checkbox" name="like1[write]" lay-skin="primary" title="超级管理员" checked="">
                         <input type="checkbox" name="like1[read]" lay-skin="primary" title="运维人员">
-                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="人事资源部人员" checked="">
+                        <input type="checkbox" name="like1[write]" lay-skin="primary" title="运营人员" checked="">
                       </div>
                   </div>
                   <div class="layui-form-item">

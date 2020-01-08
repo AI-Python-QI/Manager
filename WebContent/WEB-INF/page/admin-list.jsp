@@ -183,4 +183,33 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
       })();</script>
+      
+      
+      <!-- <table style="border:1px solid align:center width:300px height:200px">
+	
+		<tr>
+			<th>id</th>
+			<th>用户名</th>
+			<th>电话</th>
+			<th>邮箱</th>
+			<th>创建日期</th>
+			<th>状态</th>
+			<th>编辑</th>
+			</tr>
+		<tr>
+			<td>1</td>
+			<td>admin</td>
+			<td>18917996024</td>
+			<td>1891@11.com</td>
+			<td>2008-11-23</td>
+			<td>正常</td>
+			<td>删除</td>
+		</tr>
+		
+		
+		
+	
+	</table> -->
+      
+      
 </html>
